@@ -1,7 +1,8 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
+import TryCatch from "../middlewares/trycatch.middleware.js";
 
-const register = async (req, res) => {
+const register = TryCatch(async (req, res) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
@@ -24,9 +25,9 @@ const register = async (req, res) => {
       role: newUser.role,
     },
   });
-};
+});
 
-const login = async (req, res) => {
+const login = TryCatch(async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -52,10 +53,10 @@ const login = async (req, res) => {
       role: user.role,
     },
   });
-};
+});
 
-const logout = async (req, res) => {
+const logout = TryCatch(async (req, res) => {
   res.json({ message: "Logout successful" });
-};
+});
 
 export default { register, login, logout };
