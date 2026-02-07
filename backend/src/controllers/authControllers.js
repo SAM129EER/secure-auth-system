@@ -14,15 +14,21 @@ const register = TryCatch(async (req, res) => {
     return res.status(400).json({ message: "User already exists" });
   }
 
-  const newUser = await User.create({ name, email, password });
+  const newUser = await User.create({
+    name,
+    email,
+    password,
+  });
 
   res.status(201).json({
-    message: "User registered successfully",
+    message:
+      "User registered successfully. Please check your email to verify your account.",
     user: {
       id: newUser._id,
       name: newUser.name,
       email: newUser.email,
       role: newUser.role,
+      isVerified: newUser.isVerified,
     },
   });
 });
